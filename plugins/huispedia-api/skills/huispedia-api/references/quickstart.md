@@ -14,7 +14,8 @@ curl https://huispedia.dev/v5/properties/1076LJ-12-2/valuation \
   -H "X-API-Key: $HUISPEDIA_KEY"
 ```
 
-## The answer
+<details class="hp-sample">
+<summary>What the answer looks like</summary>
 
 ```json
 {
@@ -31,6 +32,8 @@ curl https://huispedia.dev/v5/properties/1076LJ-12-2/valuation \
 ```
 
 `value` is the Huispedia home value; the actual value lies between `lower` and `upper` with 80% certainty.
+
+</details>
 
 ## Next
 
