@@ -1,6 +1,7 @@
 {
   "name": "huispedia-api",
-  "description": "Use the Huispedia Data Intelligence API (Dutch property data by address), and migrate to it from Altum or Matrixian.",
+  "displayName": "Huispedia Data Intelligence API",
+  "description": "Home values and property data for every address in the Netherlands. One API with the Huispedia home value, characteristics, transactions and neighbourhood figures. 200 free credits a month. Skills for keys, addresses and areas, endpoints, credits, rate limits and errors, and for migrating from Altum or Matrixian.",
   "author": {
     "name": "Huispedia",
     "url": "https://huispedia.nl"
@@ -14,5 +15,6 @@
     "avm",
     "real-estate",
     "api"
-  ]
+  ],
+  "icon": "./icon.png"
 }

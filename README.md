@@ -1,6 +1,8 @@
+<img src="plugins/huispedia-api/icon.png" alt="Huispedia" width="96" height="96">
+
 # Huispedia skills for Claude Code
 
-Skills for the [Huispedia Data Intelligence API](https://huispedia.dev): Dutch property data by address.
+Skills for the [Huispedia Data Intelligence API](https://huispedia.dev). Home values and property data for every address in the Netherlands. One API with the Huispedia home value, characteristics, transactions and neighbourhood figures. 200 free credits a month.
 
 - `huispedia-api`: keys, locators, endpoints, credits, rate limits and errors.
 - `migrate-from-altum`: move an integration from Altum to Huispedia.

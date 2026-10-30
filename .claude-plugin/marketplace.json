@@ -4,12 +4,12 @@
     "name": "Huispedia",
     "url": "https://huispedia.nl"
   },
-  "description": "Claude Code skills for the Huispedia Data Intelligence API (huispedia.dev).",
+  "description": "Claude Code skills for the Huispedia Data Intelligence API (huispedia.dev). Home values and property data for every address in the Netherlands. One API with the Huispedia home value, characteristics, transactions and neighbourhood figures. 200 free credits a month.",
   "plugins": [
     {
       "name": "huispedia-api",
       "source": "./plugins/huispedia-api",
-      "description": "Use the Huispedia Data Intelligence API, and migrate to it from Altum or Matrixian.",
+      "description": "Home values and property data for every address in the Netherlands. One API with the Huispedia home value, characteristics, transactions and neighbourhood figures. 200 free credits a month. Skills for keys, addresses and areas, endpoints, credits, rate limits and errors, and for migrating from Altum or Matrixian.",
       "category": "development",
       "homepage": "https://huispedia.dev"
     }
