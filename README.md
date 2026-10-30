@@ -12,7 +12,7 @@ Skills for the [Huispedia Data Intelligence API](https://huispedia.dev). Home va
 
 ```
 /plugin marketplace add Housepedia/claude-plugins
-/plugin install huispedia-api@huispedia
+/plugin install huispedia-api@Huispedia
 ```
 
 More on https://huispedia.dev/en/docs/claude/. This repository is generated from the docs on every release; changes go through Huispedia.
