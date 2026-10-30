@@ -1,0 +1,17 @@
+{
+  "name": "huispedia",
+  "owner": {
+    "name": "Huispedia",
+    "url": "https://huispedia.nl"
+  },
+  "description": "Claude Code skills for the Huispedia Data Intelligence API (huispedia.dev).",
+  "plugins": [
+    {
+      "name": "huispedia-api",
+      "source": "./plugins/huispedia-api",
+      "description": "Use the Huispedia Data Intelligence API, and migrate to it from Altum or Matrixian.",
+      "category": "development",
+      "homepage": "https://huispedia.dev"
+    }
+  ]
+}

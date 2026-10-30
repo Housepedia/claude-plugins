@@ -1,0 +1,18 @@
+{
+  "name": "huispedia-api",
+  "description": "Use the Huispedia Data Intelligence API (Dutch property data by address), and migrate to it from Altum or Matrixian.",
+  "author": {
+    "name": "Huispedia",
+    "url": "https://huispedia.nl"
+  },
+  "homepage": "https://huispedia.dev/en/docs/claude/",
+  "repository": "https://github.com/Housepedia/claude-plugins",
+  "keywords": [
+    "huispedia",
+    "property-data",
+    "netherlands",
+    "avm",
+    "real-estate",
+    "api"
+  ]
+}
