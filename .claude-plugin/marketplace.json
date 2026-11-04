@@ -9,7 +9,7 @@
     {
       "name": "huispedia-api",
       "source": "./plugins/huispedia-api",
-      "description": "Home values and property data for every address in the Netherlands. One API with the Huispedia home value, characteristics, transactions and neighbourhood figures. 200 free credits a month. Skills for keys, addresses and areas, endpoints, credits, rate limits and errors, and for migrating from Altum or Matrixian.",
+      "description": "Home values and property data for every address in the Netherlands. One API with the Huispedia home value, characteristics, transactions and neighbourhood figures. 200 free credits a month. Skills for keys, addresses and areas, endpoints, credits, rate limits and errors, and for migrating from the old Huispedia API (v2), Altum or Matrixian.",
       "category": "development",
       "homepage": "https://huispedia.dev"
     }

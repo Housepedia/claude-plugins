@@ -40,5 +40,6 @@ curl https://huispedia.dev/v5/properties/1076LJ-12-2/valuation \
 - [Data catalogue](https://huispedia.dev/en/docs/catalogue/): what else you can ask for.
 - [Endpoints](https://huispedia.dev/en/docs/endpoints/): every endpoint, to try with your own credits once signed in.
 - [Addresses and areas](https://huispedia.dev/en/docs/locators/): point at a home by BAG id or at an area by CBS code.
+- [Migrating from Huispedia v2](https://huispedia.dev/en/docs/migrate/huispedia-v2/)
 - [Migrating from Altum](https://huispedia.dev/en/docs/migrate/altum/)
 - [Migrating from Matrixian](https://huispedia.dev/en/docs/migrate/matrixian/)

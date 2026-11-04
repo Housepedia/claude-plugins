@@ -47,4 +47,4 @@ Limits are per account and plan; every answer carries `X-RateLimit-Remaining` an
 
 Within v5 the API only grows: ignore fields and enum values you do not know ([versioning](references/versioning.md), [changelog](references/changelog.md)).
 
-Migrating from Altum or Matrixian: use the `migrate-from-altum` or `migrate-from-matrixian` skill.
+Migrating from the old Huispedia API (v2, api.huispedia.nl), Altum or Matrixian: use the `migrate-from-huispedia-v2`, `migrate-from-altum` or `migrate-from-matrixian` skill.

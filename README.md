@@ -6,6 +6,7 @@ Skills for the [Huispedia Data Intelligence API](https://huispedia.dev). Home va
 
 - `huispedia-api`: keys, locators, endpoints, credits, rate limits and errors.
 - `migrate-from-altum`: move an integration from Altum to Huispedia.
+- `migrate-from-huispedia-v2`: move an integration from Huispedia v2 to Huispedia.
 - `migrate-from-matrixian`: move an integration from Matrixian to Huispedia.
 
 ## Install
