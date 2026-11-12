@@ -92,12 +92,12 @@ Response: `address`, `type`, `dimensions`, `rooms`, `outdoor`, `construction`, `
 
 ### `GET /v5/properties/{locator}/energy-label`
 
-Energy label (1 credits). The registered energy label with its recording and validity dates, and earlier labels. A label from a listing when none is registered.
+Energy label (1 credits). The registered energy label with its recording and validity dates, and earlier labels. A label from a listing when none is registered. With the sustainability contract (contact sales@huispedia.nl) also the energy figures of the registered label, and an estimated label under `estimate` for a home without a registered one. An estimate is never a registered label.
 
 Parameters:
 - `locator` (path, required): `bag:<nummeraanduiding>` (`bag:0363200000028422`) or `<postcode>-<number>[-<extension>]` (`1076LJ-12-2`).
 
-Response: `address`, `label`, `source`, `recording_date`, `valid_to`, `registration_date`, `is_expired`, `history`, `meta`
+Response: `address`, `label`, `source`, `recording_date`, `valid_to`, `registration_date`, `is_expired`, `label_status`, `registered`, `estimate`, `history`, `meta`
 
 ### `GET /v5/properties/{locator}/woz`
 
@@ -136,12 +136,31 @@ Response: `address`, `data`, `meta`
 
 ### `GET /v5/buildings/{bag_pand_id}`
 
-Building and its units (1 credits). Every address in a BAG building: house numbers, floor, living area and whether it is a home, with the building's construction year and location.
+Building and its units (1 credits). Every address in a BAG building: house numbers, floor, living area and whether it is a home, with the building's construction year, and location. With the sustainability contract also its 3D shape.
 
 Parameters:
 - `bag_pand_id` (path, required): The 16-digit BAG id of the building.
 
-Response: `bag_pand_id`, `construction_year`, `bag_status`, `units_count`, `residential_units_count`, `units`, `location`, `street`, `postcode`, `city`, `meta`
+Response: `bag_pand_id`, `construction_year`, `bag_status`, `units_count`, `residential_units_count`, `units`, `location`, `street`, `postcode`, `city`, `shape`, `meta`
+
+### `GET /v5/properties/{locator}/energy-profile`
+
+Energy profile (4 credits, with contract). The energy picture of a home in one call: its energy label (registered, or estimated and marked as such), the solar potential of its roof, the average energy use and yearly cost of similar homes in its neighbourhood, and the current tariffs. Available with a contract; contact sales@huispedia.nl.
+
+Parameters:
+- `locator` (path, required): `bag:<nummeraanduiding>` (`bag:0363200000028422`) or `<postcode>-<number>[-<extension>]` (`1076LJ-12-2`).
+
+Response: `address`, `home`, `label`, `solar_potential`, `neighbourhood`, `tariffs`, `attribution`, `meta`
+
+### `GET /v5/properties/{locator}/solar-potential`
+
+Solar potential (3 credits, with contract). How many solar panels fit on the roof, their capacity and the expected yearly yield, for the home's share and for the whole building. `include=planes` adds each roof plane that gets panels with its orientation and slope. An estimate from the roof's shape, without shading or a structural check. Available with a contract; contact sales@huispedia.nl.
+
+Parameters:
+- `locator` (path, required): `bag:<nummeraanduiding>` (`bag:0363200000028422`) or `<postcode>-<number>[-<extension>]` (`1076LJ-12-2`).
+- `include` (query): `planes` adds the roof planes that get panels.
+
+Response: `address`, `is_estimate`, `potential`, `building`, `roof`, `planes`, `attribution`, `meta`
 
 ## Valuations
 
@@ -278,3 +297,12 @@ Parameters:
 - `locator` (path, required): `bag:<nummeraanduiding>` (`bag:0363200000028422`) or `<postcode>-<number>[-<extension>]` (`1076LJ-12-2`).
 
 Response: `address`, `foundation`, `subsidence`, `noise`, `air`, `heat`, `light_pollution`, `environmental_health_risk`, `bee_richness`, `sources`, `meta`
+
+### `GET /v5/areas/{area}/energy`
+
+Energy use, solar and heating (2 credits, with contract). The average gas and electricity use of homes in a neighbourhood, district or municipality, or nationally, in total and per dwelling type, the share of homes with solar panels, the heating mix and the current tariffs. From CBS; each block has its own year. Available with a contract; contact sales@huispedia.nl.
+
+Parameters:
+- `area` (path, required): level:code, such as neighbourhood:BU0363KH05, municipality:GM0363, postcode4:1076 or national.
+
+Response: `area`, `consumption`, `solar`, `heating`, `tariffs`, `attribution`, `meta`
