@@ -1,6 +1,6 @@
 ---
 name: huispedia-api
-description: Use when writing code that calls the Huispedia Data Intelligence API (huispedia.dev, /v5) or when someone needs Dutch property data by address — home valuations (AVM), WOZ value, energy label, property characteristics, transactions, reference homes, neighbourhood statistics, price index, demographics. Covers hp_ API keys, address and area locators, the endpoints and what each costs in credits, rate limits and error codes.
+description: Use when writing code that calls the Huispedia Data Intelligence API (huispedia.dev, /v5) or when someone needs Dutch property data by address — home valuations (AVM), WOZ value, energy label (registered or estimated), solar potential of the roof, property characteristics, transactions, reference homes, neighbourhood statistics, price index, demographics, energy use per neighbourhood. Covers hp_ API keys, address and area locators, the endpoints and what each costs in credits, rate limits and error codes.
 ---
 
 # Huispedia Data Intelligence API
@@ -33,7 +33,7 @@ curl https://huispedia.dev/v5/properties/1076LJ-12-2/valuation -H "X-API-Key: $H
 
 ## Credits
 
-Each endpoint costs a fixed number of credits. Only a 2xx answer is charged; errors and `HEAD` are free. Some endpoints (transactions, reference homes, valuation plus) need a contract; without one they answer `403 entitlement_required`. More: [credits](references/credits.md), [payments](references/billing.md).
+Each endpoint costs a fixed number of credits. Only a 2xx answer is charged; errors and `HEAD` are free. Some endpoints need a contract; without one they answer `403 entitlement_required`. There are two contracts: transactions (transactions, reference homes, valuation plus) and sustainability (energy profile, solar potential, area energy). The sustainability contract also adds fields to two endpoints that work without it: `registered` and `estimate` on the energy label, `shape` on a building; do not rely on those fields unless the account has the contract. An estimated energy label is always under `estimate`, never in `label`: present it as an estimate. More: [credits](references/credits.md), [payments](references/billing.md).
 
 ## Errors and limits
 

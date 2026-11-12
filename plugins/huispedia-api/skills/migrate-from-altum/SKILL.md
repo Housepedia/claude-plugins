@@ -1,6 +1,6 @@
 ---
 name: migrate-from-altum
-description: "Use when migrating code from the Altum API to the Huispedia Data Intelligence API (huispedia.dev): replacing Altum calls such as POST /avm, POST /v2/avm, POST /avm with your own characteristics, POST /avm/bulk, POST /avmplus, POST /v2/objectdata, POST /interactive-reference, POST /v2/transaction, POST /v2/transaction/ping, POST /woz, GET /woz, GET /market-trend, POST /location-data, GET /autosuggest/v2, GET /autosearch, POST /condition-score/{img,url}, GET /credit. Maps endpoints, authentication, address input, fields and error codes, and lists what has no equivalent."
+description: "Use when migrating code from the Altum API to the Huispedia Data Intelligence API (huispedia.dev): replacing Altum calls such as POST /avm, POST /v2/avm, POST /avm with your own characteristics, POST /avm/bulk, POST /avmplus, POST /v2/objectdata, POST /interactive-reference, POST /v2/transaction, POST /v2/transaction/ping, POST /woz, GET /woz, GET /market-trend, POST /location-data, GET /autosuggest/v2, GET /autosearch, POST /condition-score/{img,url}, POST /energy-climate, POST /v2/energylabel/houses, POST /solar, GET /credit. Maps endpoints, authentication, address input, fields and error codes, and lists what has no equivalent."
 ---
 
 # Migrating from Altum
@@ -16,7 +16,7 @@ How to move an integration from Altum to the Huispedia Data Intelligence API. Th
 5. Map error handling by `code` (*Errors*); handle `409 address_ambiguous` by letting the user pick a candidate.
 6. Test against the live API with the free monthly credits; there is no sandbox. Contract endpoints answer `403 entitlement_required` until the account has a contract (sales@huispedia.nl).
 
-Based on Altum's public documentation, October 2026.
+Based on Altum's public documentation, November 2026.
 
 ## Endpoints
 
@@ -35,9 +35,12 @@ Based on Altum's public documentation, October 2026.
 | `POST /location-data` | Location data | [`GET /v5/addresses/{locator}`](https://huispedia.dev/en/docs/endpoints/#tag/addresses/GET/v5/addresses/{locator})<br>[`GET /v5/areas/{area}/demographics`](https://huispedia.dev/en/docs/endpoints/#tag/areas-and-market/GET/v5/areas/{area}/demographics) |
 | `GET /autosuggest/v2`, `GET /autosearch` | Address search | [`GET /v5/addresses/suggest`](https://huispedia.dev/en/docs/endpoints/#tag/addresses/GET/v5/addresses/suggest) |
 | `POST /condition-score/{img,url}` | Condition score | [`GET /v5/properties/{locator}/condition`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/condition)<br>Per address; you do not send your own photos. |
+| `POST /energy-climate` | Energy label with its figures | [`GET /v5/properties/{locator}/energy-label`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/energy-label)<br>[`GET /v5/properties/{locator}/energy-profile`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/energy-profile) (contract)<br>The label with its dates is for everyone; the label's energy figures come with the sustainability contract. The climate fields (subsidence, groundwater, heat) are not in these. |
+| `POST /v2/energylabel/houses` | Estimated energy label | [`GET /v5/properties/{locator}/energy-label`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/energy-label)<br>With the sustainability contract the estimated label is under `estimate`, for homes without a registered label. An estimate per address; you do not send your own insulation or installations. |
+| `POST /solar` | Solar potential | [`GET /v5/properties/{locator}/solar-potential`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/solar-potential) (contract)<br>Per address, with the expected yearly yield in kWh; `include=planes` gives the roof planes. You do not send your own panel sizes and get no layout or image. |
 | `GET /credit` | Usage | [`GET /v5/account/usage`](https://huispedia.dev/en/docs/endpoints/#tag/account/GET/v5/account/usage) |
 
-Transactions, reference homes and home valuation plus come with a contract: [sales@huispedia.nl](mailto:sales@huispedia.nl).
+Transactions, reference homes and home valuation plus come with a contract, and so do the energy profile, the estimated energy label and the solar potential: [sales@huispedia.nl](mailto:sales@huispedia.nl).
 
 ## Authentication
 
@@ -138,6 +141,30 @@ More in [Addresses and areas](https://huispedia.dev/en/docs/locators/).
 | `transaction_price`, `transaction_price_indexed` | `data[].price`, `data[].price_indexed` |  |
 | `buyer`, `seller`, `family_transaction`, `more_real_estate`, `business_right` | *Not available here* |  |
 
+### Energy label
+
+`POST /energy-climate` → [`GET /v5/properties/{locator}/energy-label`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/energy-label)
+
+| Altum | Huispedia | Note |
+|---|---|---|
+| `Output.epc_label` | `label` |  |
+| `registration_date`, `validity` | `registration_date`, `valid_to` |  |
+| `calculation_method` | `registered.method` | With the sustainability contract. |
+| `energy_demand`, `percentage_renewable`, `energy_index` | `registered.energy_demand_kwh_m2`, `registered.renewable_energy_share`, `registered.energy_index` | With the sustainability contract. The renewable share is a fraction (0.125), not a percentage. |
+| `subsidence_*`, `*_groundwater_level_*`, `heat_map_*` | *Not available here* |  |
+
+### Solar potential
+
+`POST /solar` → [`GET /v5/properties/{locator}/solar-potential`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/solar-potential)
+
+| Altum | Huispedia | Note |
+|---|---|---|
+| `total_panel_capacity` | `building.panels`, `potential.panels` | `building` is the whole building, `potential` this home's share. |
+| `output[].orientation`, `azimuth`, `pitch` | `planes[].orientation`, `planes[].azimuth_degrees`, `planes[].slope_degrees` | With `include=planes`. The orientation is `south_west` instead of `SW`. |
+| `output[].area`, `panel_count` | `planes[].usable_area_m2`, `planes[].panels` |  |
+| `panel_width`, `panel_height`, `horizontal_spacing`, `vertical_spacing`, `roof_margin`, `n_panels` | *Not available here* |  |
+| `output[].image_url`, `geo_data`, `panel_grid` | *Not available here* |  |
+
 ### WOZ value
 
 `POST /woz` → [`GET /v5/properties/{locator}/woz`](https://huispedia.dev/en/docs/endpoints/#tag/properties/GET/v5/properties/{locator}/woz)
@@ -237,8 +264,12 @@ value, lower, upper = v["value"], v["lower"], v["upper"]
 - Municipal charges (`ozb_tax` and the like): not available here.
 - Average WOZ per postcode (`/woz/pc6`): not available here.
 - Rental comparables, WWS points, rebuild and contents value: not available here.
-- NTA 8800 label calculation, sustainability, subsidies, roof scans, EPC: not available here; `GET /v5/properties/{locator}/energy-label` gives the registered label.
-- Move data, building geometry, photo labelling: not available here.
+- NTA 8800 label calculation with your own inputs (insulation, installations) and the estimated energy use that comes with it: not available here; the estimated label per address is, with a contract.
+- Sustainability advice (measures, investment, savings), subsidies and EPC: not available here.
+- The effect of a label step on selling time and price (`/energyinsights`): not available here.
+- Detecting existing solar panels on aerial photos (`/satellite-roof-scan`), a panel layout and your own panel sizes: not available here; the roof's solar potential is, with a contract.
+- Climate projections (subsidence to 2100, groundwater) from `/energy-climate`: not available here; `GET /v5/properties/{locator}/environment` gives today's foundation, subsidence, noise and air.
+- Move data, a building's 3D geometry, photo labelling: not available here; with a contract `GET /v5/buildings/{bag_pand_id}` gives the building's shape in figures (floors, height, areas, volume).
 
 ### No equivalent at Altum
 
@@ -247,6 +278,8 @@ value, lower, upper = v["value"], v["lower"], v["upper"]
 - Monthly valuation history in one call: no equivalent at Altum.
 - Environment (foundation, subsidence, noise, air) and amenities per address: no equivalent in Altum's public documentation.
 - A building with all its addresses (`/v5/buildings/{bag_pand_id}`): no equivalent in Altum's public documentation.
+- Energy use, solar panels and heating per neighbourhood, district and municipality with current tariffs (`/v5/areas/{area}/energy`, with a contract): no equivalent in Altum's public documentation.
+- The expected yearly yield of solar panels in kWh: not in the documented response of Altum's `/solar`.
 
 ## Sources
 
@@ -264,3 +297,8 @@ value, lower, upper = v["value"], v["lower"], v["upper"]
 - [Fair use policy](https://docs.altum.ai/enterprise/fair-use-policy)
 - [Foutcodes 403, 422, 429](https://docs.altum.ai/api-error-codes/422)
 - [Verbruik API](https://docs.altum.ai/ontwikkelaars/verbruik-api)
+- [Energie & klimaat API](https://docs.altum.ai/verzekeren/energie-en-klimaat-api/authenticatie-invoer-en-resultaat)
+- [NTA 8800 Energielabel API v2](https://docs.altum.ai/verduurzamen/nta-8800-energielabel-v2-api/woningen/authenticatie-invoer-en-resultaat)
+- [Zonnepotentieel API](https://docs.altum.ai/verduurzamen/zonnepotentieel-api/authenticatie-invoer-en-resultaat)
+- [Zonnepanelen Detectie API](https://docs.altum.ai/verduurzamen/satelliet-dakscan-api/authentication-input-and-response)
+- [Energielabel inzichten API](https://docs.altum.ai/verduurzamen/energielabel-inzichten-api/authenticatie-invoer-en-resultaat)

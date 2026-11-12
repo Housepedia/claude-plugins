@@ -232,7 +232,7 @@ value, lower, upper = v["value"], v["lower"], v["upper"]
 - Monument status as valuation input (`monument`): not available here.
 - Market figures per postcode or street (`numZip*`, `numStr*`): not available here; per neighbourhood instead.
 - Your own weights and scores per reference home: not available here; the order gives the likeness.
-- Income, energy and crime per neighbourhood: not available here.
+- Income and crime per neighbourhood: not available here. Energy per neighbourhood is, with a contract, in `GET /v5/areas/{area}/energy`; the fields do not match one to one.
 - Housing costs (`/local-tax-energy-expenses`): not available here.
 - Home photos (`/house-images`, `/get_front_view`): not available here.
 - Cadastral objects and ownership extracts: not available here.
