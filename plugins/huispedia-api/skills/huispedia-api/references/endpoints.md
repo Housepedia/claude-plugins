@@ -48,7 +48,7 @@ Response: `data`, `meta`
 Address autocomplete (free) (free). Finds addresses and streets while you type: by postcode, postcode plus number, street, or street plus number and city. Use the locator of a result on the other endpoints.
 
 Parameters:
-- `q` (query, required): Postcode, postcode + number, street, or street + number[, city].
+- `q` (query, required): Postcode, postcode + number, street, street + number[, city], or a full address in any common order, e.g. Skeanewei 18 9212VC Boornbergum.
 - `limit` (query): At most this many results.
 - `types` (query): Comma list of address, street, postcode (all three by default).
 
