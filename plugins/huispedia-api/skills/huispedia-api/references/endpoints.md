@@ -166,7 +166,7 @@ Response: `address`, `is_estimate`, `potential`, `building`, `roof`, `planes`, `
 
 ### `GET /v5/properties/{locator}/valuation`
 
-Home valuation (8 credits). The current Huispedia home value: value, 80% interval and confidence. `as_of_date` gives the value at an earlier month, up to six months back.
+Home valuation (8 credits). The current Huispedia home value. Show `valuation.value`; the true value lies between `lower` and `upper` with 80% probability, and `confidence` says how close the value usually is to a sale price. `as_of_date` gives the value at an earlier month, up to six months back.
 
 Parameters:
 - `locator` (path, required): `bag:<nummeraanduiding>` (`bag:0363200000028422`) or `<postcode>-<number>[-<extension>]` (`1076LJ-12-2`).

@@ -31,7 +31,7 @@ curl https://huispedia.dev/v5/properties/1076LJ-12-2/valuation \
 }
 ```
 
-`value` is the Huispedia home value; the actual value lies between `lower` and `upper` with 80% certainty.
+Show `value`: it is the Huispedia home value. The true value lies between `lower` and `upper` with 80% certainty.
 
 </details>
 
